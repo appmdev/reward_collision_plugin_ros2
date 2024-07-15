@@ -29,6 +29,7 @@ install(DIRECTORY
     urdf
     meshes
     meshes/human
+    meshes/pirat
     launch
     worlds
     src

@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot  name="pirat" xmlns:xacro="http://ros.org/wiki/xacro">
+
+  <xacro:macro name="body_color">
+    <visual>
+      <material>
+        <ambient>0.909803921568627 0.443137254901961 0.0313725490196078 1</ambient>
+        <diffuse>0.909803921568627 0.443137254901961 0.0313725490196078 1</diffuse>
+        <specular>0.1 0.1 0.1 1</specular>
+        <emissive>0 0 0 0</emissive>
+      </material>
+    </visual>
+  </xacro:macro>
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="0.0182912425811423 0.00816214167781482 -0.0151972780093956"
+        rpy="0 0 0" />
+      <mass
+        value="0.5" />
+      <inertia
+        ixx="0.405"
+        ixy="0"
+        ixz="0"
+        iyy="0.405"
+        iyz="0"
+        izz="0.405" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://collision_reward/meshes/pirat/pirat.STL" scale=".005 .005 .005"/>
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.909803921568627 0.443137254901961 0.0313725490196078 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://collision_reward/meshes/pirat/pirat.STL" scale=".005 .005 .005"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Gazebo Colors -->
+  <gazebo reference="base_link">
+    <xacro:body_color />
+  </gazebo>
+  
+  <!-- Custom Gazebo Plugin for Collision Reward  -->
+  <gazebo>
+    <plugin filename="libcollision_reward_plugin.so" name="collision_reward_plugin">
+      <target_collision>waffle</target_collision>
+      <reward_value>5.0</reward_value>
+      <ros>
+        <namespace>/pirat</namespace>
+      </ros>    
+    </plugin>
+  </gazebo>
+
+</robot>
