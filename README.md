@@ -78,7 +78,7 @@ Output:
 /rosout
 ```
 
-### The /reward topic will publish as string "Reward: 10.00000; Collided: human2"
+### The /reward topic will publish as float "10.00"
 
 # Customise to your object and plugin
 

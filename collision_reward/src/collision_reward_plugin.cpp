@@ -39,7 +39,7 @@ namespace gazebo
 
     impl_->ros_node_ = gazebo_ros::Node::Get(sdf);
 
-    impl_->reward_publisher_ = impl_->ros_node_->create_publisher<std_msgs::msg::String>("/reward", 10);
+    impl_->reward_publisher_ = impl_->ros_node_->create_publisher<std_msgs::msg::Float32>("/reward", 10);
 
     impl_->world_ = model->GetWorld();
     
@@ -70,7 +70,6 @@ namespace gazebo
     }
 
     bool specific_collision_detected = false;
-    std::string collision_object_name;
     for (int i = 0; i < contacts->contact_size(); ++i)
     {
       const auto &contact = contacts->contact(i);
@@ -80,12 +79,10 @@ namespace gazebo
            contact.collision1().find(impl_->target_collision_) != std::string::npos))
       {
         specific_collision_detected = true;
-        collision_object_name = (contact.collision1().find(impl_->model_name_) != std::string::npos) ? contact.collision2() : contact.collision1();
         break;
       }
     }
     impl_->specific_collision_detected_.store(specific_collision_detected, std::memory_order_relaxed);
-    impl_->collision_object_name_ = collision_object_name;
 
     // Update the last process time
     impl_->last_process_time_ = now;
@@ -96,11 +93,10 @@ namespace gazebo
     bool specific_collision_detected = impl_->specific_collision_detected_.load(std::memory_order_relaxed);
     if (specific_collision_detected)
     {
-      auto msg = std::make_shared<std_msgs::msg::String>();
-      //msg->data = "Reward: " + std::to_string(impl_->reward_value_) + "; Collided: " + impl_->collision_object_name_;
-      msg->data = "Reward: " + std::to_string(impl_->reward_value_) + "; Collided: " + impl_->model_name_;
+      auto msg = std::make_shared<std_msgs::msg::Float32>();
+      msg->data = impl_->reward_value_;
       impl_->reward_publisher_->publish(*msg);
-      RCLCPP_INFO(impl_->ros_node_->get_logger(), "Publishing reward: %s", msg->data.c_str());
+      RCLCPP_INFO(impl_->ros_node_->get_logger(), "Publishing reward: %f", msg->data);
     }
   }
 

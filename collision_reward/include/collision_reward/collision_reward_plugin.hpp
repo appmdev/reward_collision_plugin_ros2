@@ -7,7 +7,7 @@
 #include <gazebo/physics/ContactManager.hh>
 #include <gazebo_ros/node.hpp>
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
+#include <std_msgs/msg/float32.hpp>
 #include <gazebo/transport/Node.hh>
 #include <gazebo/transport/Subscriber.hh>
 #include <gazebo/msgs/contacts.pb.h>
@@ -39,14 +39,13 @@ namespace gazebo
   {
   public:
     gazebo_ros::Node::SharedPtr ros_node_;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr reward_publisher_;
+    rclcpp::Publisher<std_msgs::msg::Float32>::SharedPtr reward_publisher_;
     gazebo::physics::ContactManager *contact_manager_;
     gazebo::physics::WorldPtr world_;
     gazebo::transport::NodePtr gz_node_;
     gazebo::transport::SubscriberPtr contact_sub_;
     std::string model_name_;
     std::string target_collision_;
-    std::string collision_object_name_;
     double reward_value_;
     rclcpp::TimerBase::SharedPtr timer_;
     std::atomic<bool> specific_collision_detected_{false};
