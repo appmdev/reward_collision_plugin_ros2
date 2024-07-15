@@ -78,7 +78,14 @@ Output:
 /rosout
 ```
 
-### The /reward topic will publish as float "10.00"
+### The /reward topic will publish as float 
+
+
+```bash
+---
+data: 10.0
+---
+```
 
 # Customise to your object and plugin
 
