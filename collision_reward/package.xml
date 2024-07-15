@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>collision_reward</name>
+  <version>1.0.0</version>
+  <description>Collision Reward Plugin that can be used in any of your simulations.</description>
+  <maintainer email="test@test.edu">shantanu</maintainer>
+  <license>Apache License 2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <build_depend>rosidl_default_generators</build_depend>
+
+  <build_depend>xacro</build_depend>
+  <build_depend>gazebo_ros</build_depend>
+
+
+  <depend>gazebo_ros_pkgs</depend>
+  <depend>rclcpp</depend>
+  <depend>robot_state_publisher</depend>
+  <depend>std_msgs</depend>
+  <depend>tf2</depend>
+  <depend>tf2_ros</depend>
+
+  <exec_depend>gazebo_ros</exec_depend>
+
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+  <test_depend>ament_cmake_gtest</test_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+    <gazebo_ros gazebo_model_path="${prefix}/.." />
+  </export>
+</package>
