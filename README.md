@@ -78,8 +78,7 @@ Output:
 /rosout
 ```
 
-### The /reward topic will publish as float 
-
+### The /reward topic will publish as string
 
 ```bash
 ---
@@ -92,14 +91,14 @@ data: 10.0
 
 ### To implement your custom plugin do following
 
-#### Copy and rename accordingly "spawn_human_ros2.launch.py" file and modify with your custom object
+#### From folder "launch" Copy and rename accordingly "spawn_human_ros2.launch.py" file and modify with your custom object or add your ouwn file
 
 ```bash
 urdf_file = 'custom_name.urdf'
 xacro_file = "custom_name.urdf.xacro"
 namespace_declared = "obj2"
 ```
-#### Add following to urdf object "custom_name.urdf.xacro" of your custom object
+#### In the folder "urdf" add following to urdf object "custom_name.urdf.xacro" of your custom object
 ```bash
   <!-- Custom Gazebo Plugin for Collision Reward  -->
   <gazebo>
@@ -112,6 +111,15 @@ namespace_declared = "obj2"
     </plugin>
   </gazebo>
 ```
+
+#### <target_collision>waffle</target_collision> 
+
+will track collision with that object;
+ 
+#### <reward_value>10.0</reward_value> 
+will be the value which will be published on collision;
+
+
 #### Create folder with custom object name
 ```bash
 mkdir -p ~/ros2_ws/src/reward_collision_plugin_ros2/collision_reward/meshes/custom_name
@@ -135,4 +143,18 @@ install(DIRECTORY
     meshes/human
     meshes/custom_name
     launch
+```
+
+### Build package
+
+```bash
+colcon build --packages-select collision_reward --symlink-install
+```
+
+### Launch custom_object with custom plugin
+
+```bash
+source /opt/ros/humble/setup.bash
+source ~/ros2_ws/install/setup.bash
+ros2 launch collision_reward custom_object_ros2.launch.py
 ```
