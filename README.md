@@ -23,7 +23,7 @@ cd ~/ros2_ws/src
 ### Pull and Build Package
 
 ```bash
-git clone https://github.com/appmdev/reward_collision_plugin_ros2.git
+git clone -b collision_reward_plugin_ros2_float https://github.com/appmdev/reward_collision_plugin_ros2.git
 ```
 **Resolve Dependencies**
 ```bash
